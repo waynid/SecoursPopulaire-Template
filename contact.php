@@ -2,7 +2,7 @@
 
 $filePath = 'contacts.csv';
 
-file_put_contents($filePath, implode('\t', [
+file_put_contents($filePath, implode('  ', [
     $_POST['name'] ?? '',
     $_POST['email'] ?? '',
     $_POST['message'] ?? ''

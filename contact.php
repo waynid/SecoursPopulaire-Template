@@ -1,26 +1,13 @@
 <?php
 
-$filePath = 'contacts.json';
+$filePath = 'contacts.csv';
 
-$name = $_POST['name'] ?? '';
-$email = $_POST['email'] ?? '';
-$message = $_POST['message'] ?? '';
+file_put_contents($filePath, implode(',', [
+    $_POST['name'] ?? '',
+    $_POST['email'] ?? '',
+    $_POST['message'] ?? ''
+]) . PHP_EOL, FILE_APPEND);
 
-$newData = array(
-    'name' => $name,
-    'email' => $email,
-    'message' => $message
-);
-
-$existingData = file_get_contents($filePath);
-$existingDataArray = json_decode($existingData, true);
-
-$existingDataArray[] = $newData;
-
-$newJsonData = json_encode($existingDataArray, JSON_PRETTY_PRINT);
-
-file_put_contents($filePath, $newJsonData);
-
-header("Location: valid.html"); 
-exit()
+header("Location: valid.html");
+exit();
 ?>

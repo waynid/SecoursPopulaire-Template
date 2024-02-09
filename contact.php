@@ -1,31 +1,26 @@
 <?php
 
-$servername = " ";
-$username = " ";
-$password = " ";
-$dbname = " ";
+$filePath = 'contacts.json';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$name = $_POST['name'] ?? '';
+$email = $_POST['email'] ?? '';
+$message = $_POST['message'] ?? '';
 
-if ($conn->connect_error) {
-    die($conn->connect_error);
-}
+$newData = array(
+    'name' => $name,
+    'email' => $email,
+    'message' => $message
+);
 
-$name = $_POST['name'];
-$email = $_POST['email'];
-$message = $_POST['message'];
+$existingData = file_get_contents($filePath);
+$existingDataArray = json_decode($existingData, true);
 
-$stmt = $conn->prepare("INSERT INTO messages (name, email, message) VALUES (?, ?, ?)");
-$stmt->bind_param("sss", $name, $email, $message);
-$stmt->execute();
+$existingDataArray[] = $newData;
 
-if ($stmt->affected_rows > 0) {
-    echo "OK";
-} else {
-    echo "ERROR";
-}
+$newJsonData = json_encode($existingDataArray, JSON_PRETTY_PRINT);
 
-$stmt->close();
-$conn->close();
+file_put_contents($filePath, $newJsonData);
 
+header("Location: valid.html"); 
+exit()
 ?>

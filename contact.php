@@ -1,18 +1,31 @@
 <?php
+$dbFile = 'private/spf.db';
 
-$filePath = 'contacts.csv';
+try {
+    $db = new PDO('sqlite:' . $dbFile);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    die("Erreur : " . $e->getMessage());
+}
 
-$name = isset($_POST['name']) ? $_POST['name'] : '';
-$email = isset($_POST['email']) ? $_POST['email'] : '';
-$message = isset($_POST['message']) ? $_POST['message'] : '';
-$message = str_replace('"', '\"', $message);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nom = $_POST['name'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $message = $_POST['message'] ?? '';
+    $time = date('Y-m-d H:i:s');
 
-$line = implode(',', [
-    '"' . $name . '"',
-    '"' . $email . '"',
-    '"' . $message . '"'
-]) . PHP_EOL;
+    $stmt = $db->prepare("INSERT INTO formulaire (name, email, message, time) VALUES (:name, :email, :message, :time)");
 
-file_put_contents($filePath, $line, FILE_APPEND);
-header("Location: valid.html");
+    try {
+        $stmt->execute(array(
+            ':name' => $nom,
+            ':email' => $email,
+            ':message' => $message,
+            ':time' => $time
+        ));
+        header('Location: valid.html');
+    } catch (PDOException $e) {
+        header('Location: error.html');
+    }
+}
 ?>

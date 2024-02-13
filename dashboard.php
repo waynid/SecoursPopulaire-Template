@@ -16,7 +16,6 @@ if (isset($_POST['mot_de_passe'])) {
 
             $stmt = $db->query('SELECT * FROM formulaire');
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
             echo "<div class=\"container\">";
             echo "<header style=\"text-align: center;\">";
             echo "<div class=\"logo\"><img src=\"img\Logo_Secours_populaire_français.png\" alt=\"Logo\"></div>";

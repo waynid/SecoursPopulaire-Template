@@ -62,7 +62,7 @@ if (isset($_POST['mot_de_passe'])) {
                 <input type="submit" value="Valider" class="don-button">
             </form>
         </div>
-    </div>
+    </div> 
     <?php endif; ?>
 </body>
 </html>

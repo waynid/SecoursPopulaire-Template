@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /valid.html
+Disallow: /error.html
+Disallow: /dashboard.php
+Allow: /index.html
+Allow: /contact.html
+Allow: /braderie.html   

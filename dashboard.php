@@ -7,6 +7,13 @@ if (isset($_POST['mot_de_passe'])) {
             $db = new PDO('sqlite:private/spf.db');
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+            if(isset($_POST['delete_id'])) {
+                $deleteId = $_POST['delete_id'];
+                $stmt = $db->prepare('DELETE FROM formulaire WHERE id = :id');
+                $stmt->bindParam(':id', $deleteId);
+                $stmt->execute();
+            }
+
             $stmt = $db->query('SELECT * FROM formulaire');
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -18,7 +25,8 @@ if (isset($_POST['mot_de_passe'])) {
             echo "<div class=\"content\">";
             echo "<ul style=\"list-style-type: none; padding: 0; text-align: center;\">";
             foreach ($rows as $row) {
-                echo "<li>Name: {$row['name']} | Email: {$row['email']} | Message: {$row['message']} | Time: {$row['time']}</li>";
+                echo "<li>Name: {$row['name']} | Email: {$row['email']} | Message: {$row['message']} | Time: {$row['time']} | <form method=\"post\" action=\"\"><input type=\"hidden\" name=\"mot_de_passe\" value=\"".$_POST['mot_de_passe']."\"><input type=\"hidden\" name=\"delete_id\" value=\"{$row['id']}\"><input type=\"submit\" value=\"Supprimer\"></form></li>";
+                echo "<br>";
             }
             echo "</ul>";
             echo "</div>";

@@ -24,7 +24,7 @@ if (isset($_POST['mot_de_passe'])) {
             echo "<div class=\"content\">";
             echo "<ul style=\"list-style-type: none; padding: 0; text-align: center;\">";
             foreach ($rows as $row) {
-                echo "<li>Name: {$row['name']} | Email: {$row['email']} | Message: {$row['message']} | Time: {$row['time']} | <form method=\"post\" action=\"\"><input type=\"hidden\" name=\"mot_de_passe\" value=\"".$_POST['mot_de_passe']."\"><input type=\"hidden\" name=\"delete_id\" value=\"{$row['id']}\"><input type=\"submit\" value=\"Supprimer\"></form></li>";
+                echo "<li>Name: {$row['name']} | Email: {$row['email']} | Message: {$row['message']} | Time: {$row['time']} | <form method=\"post\" action=\"\"><input type=\"hidden\" name=\"mot_de_passe\" value=\"".$_POST['mot_de_passe']."\"><input type=\"hidden\" name=\"delete_id\" value=\"{$row['id']}\"><input type=\"submit\" value=\"Supprimer\" style='font-size: 15px; background-color: lightblue; border-radius: 5ch;'></form></li>";
                 echo "<br>";
             }
             echo "</ul>";

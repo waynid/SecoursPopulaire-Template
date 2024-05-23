@@ -70,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <a href="brocante.html" class="don-button">brocante</a>
             <a href="braderie.html" class="don-button">Braderie</a>
             <a href="https://don.secourspopulaire.fr/defaut/~mon-don?_cv=1" class="don-button">Faire un don</a>
+            <a href="https://meubles.scpchateaulin.fr" class="don-button">Meubles</a>
             <a href="index.html" class="don-button">Accueil</a>
         </div>
     </div>

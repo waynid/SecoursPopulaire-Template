@@ -1,4 +1,0 @@
-<Files "contacts.csv">
-    Order Allow,Deny
-    Deny from all
-</Files>

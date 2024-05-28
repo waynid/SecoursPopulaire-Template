@@ -1,26 +1,30 @@
 <?php
-$pass = '$2a$05$bPvimse2QEj.n/ow6g.AXu9XWmv13lfBnEhOxNpLkyZpLj22KFDAC';
+
+$pass = '$2a$05$bPvimse2QEj.n/ow6g.AXu9XWmv13lfBnEhOxNpLkyZpLj22KFDAC'; // Password en hash Bcrypt - test
+
 
 if (isset($_POST['mot_de_passe'])) {
-    if (password_verify($_POST['mot_de_passe'], $pass)) {
+    if (password_verify($_POST['mot_de_passe'], $pass)) { // Verif MDP + connection a la base de données
         try {
             $db = new PDO('sqlite:private/spf.db');
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            if(isset($_POST['delete_id'])) {
+            
+            if (isset($_POST['delete_id'])) {           // Systeme de suppresion des formulaires - By ID
                 $deleteId = $_POST['delete_id'];
                 $stmt = $db->prepare('DELETE FROM formulaire WHERE id = :id');
                 $stmt->bindParam(':id', $deleteId);
                 $stmt->execute();
             }
 
-            $stmt = $db->query('SELECT * FROM formulaire');
+            
+            $stmt = $db->query('SELECT * FROM formulaire');         // RECUP - AFFICHAGE des formulaires
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             echo "<div class=\"container\">";
             echo "<header style=\"text-align: center;\">";
             echo "<div class=\"logo\"><img src=\"img\Logo_Secours_populaire_français.png\" alt=\"Logo\"></div>";
             echo "<div class=\"title\"><h1>Derniers formulaires :</h1></div>";
-            echo "</header>";
+            echo "</header>";                                                   
             echo "<div class=\"content\">";
             echo "<ul style=\"list-style-type: none; padding: 0; text-align: center;\">";
             foreach ($rows as $row) {
@@ -30,10 +34,11 @@ if (isset($_POST['mot_de_passe'])) {
             echo "</ul>";
             echo "</div>";
             echo "</div>";
+        
         } catch (PDOException $e) {
             header('Location: error.html');
         }
-    } else {
+    } else {                                    // gestion des erreurs 
         header('Location: error.html');
         exit;
     }
@@ -41,6 +46,7 @@ if (isset($_POST['mot_de_passe'])) {
 ?>
 
 <!DOCTYPE html>
+<!-- Structure HTML -->
 <html>
 <head>
     <title>Formulaires | Dashboard</title>
